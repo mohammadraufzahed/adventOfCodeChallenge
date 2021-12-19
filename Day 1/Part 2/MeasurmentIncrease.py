@@ -2,20 +2,28 @@ class MeasurementIncrease():
     def __init__(self):
         # Read the input file
         with open("input.txt") as f:
-            self.measurements = f.read().split("\n")
+            measurements = f.read().split("\n")
             # Try to remove the null index
             try:
-                self.measurements.remove("")
+                measurements.remove("")
             except ValueError as e:
                 pass
+            self._measurements_list = []
+            for key, measurement in enumerate(measurements):
+                try:
+                    self._measurements_list.append([
+                        int(measurements[key]), int(measurements[key+1]), int(measurements[key+2])])
+                except IndexError as e:
+                    pass
         self._count = 0
 
     def start(self):
-        self._countmeasurements()
-        print(self._count)
+        result = self._calculate()
+        print(result)
 
-    def _countmeasurements(self):
-        # Iterating over the measurements
-        for index, item in enumerate(self.measurements):
-            if(int(item) > int(self.measurements[index - 1])):
-                self._count += 1
+    def _calculate(self):
+        count = 0
+        for key, measurment in enumerate(self._measurements_list):
+            if(sum(measurment) > sum(self._measurements_list[key - 1])):
+                count += 1
+        return count
