@@ -33,7 +33,3 @@ class CalculateDepth:
             elif "down" in item:
                 depth += int(item.split(" ")[1].strip())
         return depth
-
-
-cd = CalculateDepth()
-cd.start()
